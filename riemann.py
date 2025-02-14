@@ -2,7 +2,7 @@ import numpy as np
 def trapezoid(x_vals: np.ndarray, func: np.ufunc) -> float:
     """
     Calculates area of trapezoids under curve using vertices
-    Area of trapezoid = (f(a) + f(b)) * (b-a)/2), where f(a) and f(b) are y values of the x vales, and b-a is the width between x-values.
+    Area of trapezoid = (f(a) + f(b)) * (b-a)/2), where f(a) and f(b) are y values of the x values, and b-a is the width between x-values.
 
     Parameters:
         x_vals: an 1-d array of the x-values used in determining the integral
