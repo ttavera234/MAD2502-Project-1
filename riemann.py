@@ -40,3 +40,19 @@ def trapezoid(x_vals: np.ndarray, func: np.ufunc) -> float:
 
     return sum_of_trapezoids
 
+
+def simpson(x_vals: np.ndarray, func: np.ufunc) -> float:
+    n = len(x_vals) - 1
+    if n % 2 != 0:
+        x_vals = np.linspace(x_vals[0], x_vals[-1], len(x_vals) + 1)
+
+    delta = x_vals[1] - x_vals[0]
+    y_vals = func(x_vals)
+
+    sum_4s = 4 * np.sum(y_vals[1:-1:2])
+    sum_2s = 2 * np.sum(y_vals[2:-1:2])
+    final_sum = y_vals[0] + y_vals[-1] + sum_4s + sum_2s
+    simpson_final = (delta/3) * final_sum
+
+    return simpson_final
+
