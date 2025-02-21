@@ -14,7 +14,7 @@ def trapezoid(x_vals: np.ndarray, func: np.ufunc) -> float:
     y_vals = func(x_vals)
     lengths_per_x_vals = y_vals[:-1] + y_vals[1:]
     widths = x_vals[1:] - x_vals[:-1]
-    sum_of_trapezoids = np.sum(lengths_per_x_vals * widths)/2
+    sum_of_trapezoids = np.sum((lengths_per_x_vals * widths)/2)
 
     return sum_of_trapezoids
 
