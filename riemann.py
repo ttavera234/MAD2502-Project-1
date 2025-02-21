@@ -42,17 +42,22 @@ def trapezoid(x_vals: np.ndarray, func: np.ufunc) -> float:
 
 
 def simpson(x_vals: np.ndarray, func: np.ufunc) -> float:
-    n = len(x_vals) - 1
-    if n % 2 != 0:
-        x_vals = np.linspace(x_vals[0], x_vals[-1], len(x_vals) + 1)
+    """
+    Calculates area of parabolas under curve using a formula for each section
+    Formula = ((b-a)/6)*(f(a) + 4f((a+b)/2) + f(b)), where f(a) and f(b) are y values of the x values, and b-a is the width between x-values.
 
-    delta = x_vals[1] - x_vals[0]
+    Parameters:
+        x_vals: A 1-dimension array of the x-values used in determining the sections used to determine the integral.
+        func: A universal function that the integral is taken from (f(x_vals)).
+
+    Returns:
+        simpson_final: A float that is the sum of section areas found using the parabola formula.
+    """
     y_vals = func(x_vals)
+    y_vals4 = 4 * (func((x_vals[1:] + x_vals[:-1])/2))
+    b_a = x_vals[1:] - x_vals[:-1]
 
-    sum_4s = 4 * np.sum(y_vals[1:-1:2])
-    sum_2s = 2 * np.sum(y_vals[2:-1:2])
-    final_sum = y_vals[0] + y_vals[-1] + sum_4s + sum_2s
-    simpson_final = (delta/3) * final_sum
-
+    simpson_final = np.sum((b_a/6) * (y_vals[:-1] + y_vals4 + y_vals[1:]))
     return simpson_final
+
 
