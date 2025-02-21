@@ -62,21 +62,17 @@ def get_cartesian_coordinates(triangle_coordinates: np.ndarray, barycentric_coor
 
 
 def is_inside_triangle(triangle_coordinates: np.ndarray, point_coordinates) -> bool:
-    x1, y1 = triangle_coordinates[:,0]
-    x2, y2 = triangle_coordinates[:,1]
-    x3, y3 = triangle_coordinates[:,2]
-    px, py = point_coordinates
+    """
+    Parameters:
+        triangle_coordinates: A 2x3 matrix containing coordinate:
+                ([x1, x2, x3],
+                 [y1, y2, y3])
+        point_coordinates: A 1x2 matrix in the form of coordinates
+                ([x, y])
 
-    def dire(x1, y1, x2, y2, x3, y3):
-        return (x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3)
-
-    d1 = dire(px, py, x1, y1, x2, y2)
-    d2 = dire(px, py, x2, y2, x3, y3)
-    d3 = dire(px, py, x3, y3, x1, y1)
-    if (d1 <= 0) and (d2 <= 0) and (d3 <= 0):
-        return True
-    elif (d1 >= 0) and (d2 >= 0) and (d3 >= 0):
-        return True
-    else:
-        return False
+    Returns:
+        A boolean confirming whether a point is within a triangle based on the signs of the barycentric coordinates.
+    """
+    bary_coord = get_barycentric_coordinates(triangle_coordinates, point_coordinates)
+    return np.all(bary_coord >= 0)
 
