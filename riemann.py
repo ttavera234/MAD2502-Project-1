@@ -1,4 +1,26 @@
 import numpy as np
+
+
+def left_endpoint(x_vals: np.ndarray, func: np.ufunc) -> float:
+    """
+    Description:
+        Approximates the area between a curve and the x-axis using rectangular heights and widths.
+        The height of the rectangle is f(a) and the width is (b-a).
+
+    Parameters:
+        x_vals: a one-dimensional NumPy array containing the x-values used in approximating the integral (x[0] = a and x[-1] = b)
+        func: a NumPy universal function to approximate the integral with (f(x))
+
+    Returns:
+        The sum of all the rectangular areas
+    """
+
+    rectangle_heights = func(x_vals[:-1])
+    rectangles_widths = x_vals[1:] - x_vals[:-1]
+    area_approx = np.sum(rectangle_heights * rectangles_widths)
+    return area_approx
+
+
 def trapezoid(x_vals: np.ndarray, func: np.ufunc) -> float:
     """
     Calculates area of trapezoids under curve using vertices
